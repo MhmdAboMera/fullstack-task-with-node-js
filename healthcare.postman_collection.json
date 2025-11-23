@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "30108454-c276-46bf-8a72-9b2aff8ae2a3",
+		"name": "healthcare",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29120127",
+		"_collection_link": "https://angular-project-iti-team.postman.co/workspace/wasel~d02bd617-3735-4216-b8df-8f169bf557d7/collection/29120127-30108454-c276-46bf-8a72-9b2aff8ae2a3?action=share&source=collection_link&creator=29120127"
+	},
+	"item": [
+		{
+			"name": "Register-New-Patient-or-doc",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"New Patient\",\r\n  \"email\": \"newpatient@demo.com\",\r\n  \"password\": \"password123\",\r\n  \"role\": \"patient\",\r\n  \"phone\": \"+1234567890\",\r\n  \"address\": \"123 Main Street, City, State\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"auth": {
+					"type": "bearer"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"patient123@example.com\",\r\n  \"password\": \"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add visit",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MWNkNTM4NmYwODRkOWI3ZDgzYzFlYSIsInJvbGUiOiJkb2N0b3IiLCJpYXQiOjE3NjM0OTkwMDEsImV4cCI6MTc2NDEwMzgwMX0.uNENSwl5RVFG-SY-s4gOv5C9KmCa11_HydYFGbKXANQ",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n{\r\n    \"doctorId\": \"691cd5386f084d9b7d83c1ea\",\r\n    \"scheduledDate\": \"2024-01-20T10:00:00.000Z\",\r\n    \"symptoms\": \"Headache, fever, and body aches for 2 days\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/visits",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"visits"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add treatment",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5MWU1N2UwMzNiNGRmOTU0YWExOTgyNCIsInJvbGUiOiJkb2N0b3IiLCJpYXQiOjE3NjM1OTg3MDIsImV4cCI6MTc2NDIwMzUwMn0.Kg4_LJ15mXVSVlCJ8YtrD7yfmFjJ6_x6U1SL_wsHaD4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"visitId\": \"691e5b934a2060d7ef1b6126\",\r\n  \"name\": \"Blood Test\",\r\n  \"amount\": 3,\r\n  \"description\": \"Basic routine blood test including CBC\",\r\n  \"cost\": 150\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/v1/treatments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"treatments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get doctors",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
