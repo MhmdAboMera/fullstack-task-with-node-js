@@ -2,8 +2,65 @@
 import express from 'express';
 import auth from '../middleware/auth.js';
 import Visit from '../models/Visit.js';
+import User from '../models/User.js';
+
 const router = express.Router();
 
+
+router.get('/', async (req, res) => {
+  try {
+    const {
+      name,
+      email,
+      specialization,
+      phone,
+      address,
+      page = 1,
+      limit = 10,
+    } = req.query;
+
+    const skip = (page - 1) * limit;
+
+    let filter = { role: "doctor" };
+
+    if (name) {
+      filter.name = { $regex: name, $options: "i" };
+    }
+
+    if (email) {
+      filter.email = { $regex: email, $options: "i" };
+    }
+
+    if (specialization) {
+      filter.specialization = { $regex: specialization, $options: "i" };
+    }
+
+    if (phone) {
+      filter.phone = { $regex: phone, $options: "i" };
+    }
+
+    if (address) {
+      filter.address = { $regex: address, $options: "i" };
+    }
+
+    const total = await User.countDocuments(filter);
+
+    const doctors = await User.find(filter)
+      .select("name email phone specialization address createdAt")
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    res.json({
+      success: true,
+      total,
+      page: Number(page),
+      totalPages: Math.ceil(total / limit),
+      doctors,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+});
 
 // Get doctor's schedule
 router.get('/schedule', auth, async (req, res) => {
